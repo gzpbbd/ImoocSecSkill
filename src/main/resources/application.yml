@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    username: root
+    password: 'mysql'
+    url: 'jdbc:mysql://10.12.41.169:13306/seckill'
+    druid:
+      filters: stat
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+      initial-size: 10
+      max-active: 30
+      max-wait: 1000
+
+  redis:
+    host: 10.12.41.169
+    port: 6379
+    password: redis
+  cache:
+    #    type: redis
+    #    cache-names: redisCache
+    redis:
+      time-to-live: 3600000
+#      key-prefix: 'cache:'
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+
+#logging:
+#  level:
+#    fit.hcp.imoocsecskill.dao: debug
+#  file:
+#    path: ./logs
+#    org: debug
+#    com: debug
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+#debug: false
+server:
+  port: 80

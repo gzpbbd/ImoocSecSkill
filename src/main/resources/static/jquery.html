@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery练习</title>
+</head>
+<body>
+
+
+<div id="app">text</div>
+
+
+<div id="msg">message</div>
+<div id="localhost">localhost</div>
+<div id="baidu">baidu</div>
+<div id="bilibili">bilibili</div>
+
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    let info = function (responseTxt, statusTxt, xhr) {
+        if (statusTxt == "success")
+            $('#msg').text("加载成功")
+        if (statusTxt == "error")
+            $('#msg').text("加载失败")
+
+    }
+
+    // $('#localhost').load("http://localhost:8080/seckill/list")
+    // $('#baidu').load("http://baidu.com/")
+    $('#bilibili').load("https://www.bilibili.com/", info)
+
+</script>
+
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    // $('#app').load("http://localhost:8080/seckill/list")
+    // $('#app').load("tmp.txt")
+    let getData = $.get("http://localhost:8080/seckill/list",
+        function (data, status) {
+            console.log("数据: " + data + "\n状态: " + status);
+        }
+    )
+    $('#app').text(getData)
+</script>
+
+
+
+</body>
+</html>

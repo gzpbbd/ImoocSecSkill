@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fit.hcp.imoocsecskill.dao.SuccessKilledRecordDao">
+    <update id="insertRecord">
+        <!-- 忽略主键冲突的报错，而是返回0 -->
+        insert ignore into success_killed_record(seckill_id, user_phone, state)
+        values (#{seckillId}, #{userPhone}, 0)
+    </update>
+    <select id="queryByIdWithProduct" resultType="fit.hcp.imoocsecskill.bean.SuccessKilledRecord">
+        select record.seckill_id,
+               record.user_phone,
+               record.state,
+               record.create_time,
+               product.seckill_id  as "seckillProduct.seckillId",
+               product.name        as "seckillProduct.name",
+               product.number      as "seckillProduct.number",
+               product.start_time  as "seckillProduct.startTime",
+               product.end_time    as "seckillProduct.endTime",
+               product.create_time as "seckillProduct.createTime"
+        from success_killed_record as record
+                 inner join seckill_product as product
+                            on record.seckill_id = product.seckill_id
+        where record.seckill_id = #{seckillId}
+          and record.user_phone = #{userPhone}
+    </select>
+</mapper>

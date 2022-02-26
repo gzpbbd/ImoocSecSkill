@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>秒杀列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="panel panel-default"></div>
+    <div class="panel-heading text-center">
+        <h2>秒杀列表</h2>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>库存</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>创建时间</th>
+                <th>详情页</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product: ${productList}">
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.number}"></td>
+                <td th:text="${product.startTime}"></td>
+                <td th:text="${product.endTime}"></td>
+                <td th:text="${product.createTime}"></td>
+                <td>
+                    <a class="btn btn-info" th:href="@{/seckill/{id}/detail(id=${product.seckillId})}"
+                       target="_blank">link</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+<div style="width:300px;margin:0 auto; padding:20px 0;">
+    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=36092302000147" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">赣公网安备 36092302000147号</p></a>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+</html>

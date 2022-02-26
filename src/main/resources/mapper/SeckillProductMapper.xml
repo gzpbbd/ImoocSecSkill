@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fit.hcp.imoocsecskill.dao.SeckillProductDao">
+    <update id="reduceNumber">
+        update seckill_product
+        set number = number - 1
+        where seckill_id = #{seckillId}
+          and start_time <![CDATA[<=]]> #{killTime}
+          and end_time >= #{killTime}
+          and number > 0;
+    </update>
+
+    <select id="queryById" resultType="fit.hcp.imoocsecskill.bean.SeckillProduct" parameterType="Long">
+        select seckill_id, name, number, start_time, end_time, create_time
+        from seckill_product
+        where seckill_id = #{seckillId}
+    </select>
+
+    <select id="queryAll" resultType="fit.hcp.imoocsecskill.bean.SeckillProduct">
+        select seckill_id, name, number, start_time, end_time, create_time
+        from seckill_product
+        order by create_time desc limit #{offset}, #{limit}
+    </select>
+
+    <select id="killByProcedure" statementType="CALLABLE">
+        call execute_seckill(
+            #{seckillId, jdbcType=BIGINT, mode=IN},
+            #{userPhone, jdbcType=VARCHAR, mode=IN},
+            #{killTime, jdbcType=TIMESTAMP, mode=IN},
+            #{result, jdbcType=TINYINT, mode=OUT}
+            )
+    </select>
+</mapper>
